@@ -5,6 +5,10 @@ const app = express();
 
 const style = `
   <style>
+    body{
+      text-align: center;
+    }
+
     table, th, td {
       border: 1px solid black;
     }
@@ -37,21 +41,8 @@ const style = `
 
 app.get('/', (req, res) => {
   const url = req.query;
-  if (!url.tabuada) {
-    res.status(200).send(`
-      <h1>Exercicio Tabuada</h1>
-      <p>
-        Informe na url a tabuada desejada. 
-      </p>
-      <p>
-        Exemplo: <code>http://localhost/?tabuada=7&sequencia=10</code> 
-      </p>
-      <p>Dessa maneira apresentará uma tabuada do número: "7" multiplicado do 0 ao 10</p>
-      `);
-  } else {
-    const { tabuada, sequencia = 10 } = req.query;
 
-    let codHTML = `
+  let codHTML = `
       <!DOCTYPE html>
         <html lang="pt-br">
         <head>
@@ -62,6 +53,31 @@ app.get('/', (req, res) => {
         </head>
         <body>
     `;
+
+  if (!url.tabuada) {
+    res.status(200).send(
+      (codHTML += `
+              <h1>Exercicio Tabuada</h1>
+              <p>
+                Informe na url a tabuada desejada. 
+              </p>
+              <p>
+                Exemplo: <code>http://localhost/?tabuada=7&sequencia=10</code> 
+              </p>
+              <p>Dessa maneira apresentará uma tabuada do número: "7" multiplicado do 0 ao 10</p>
+            <footer>
+			        <p>Desenvolvido por
+                <a href="https://www.github.com/vmedeir0s/" target="_blank"
+                  >Vinicius de Medeiros</a>👨‍💻
+              </p>
+            </footer>
+        </body>
+      </html>
+
+      `)
+    );
+  } else {
+    const { tabuada, sequencia = 10 } = req.query;
 
     if (parseInt(tabuada) > 0) {
       codHTML += `
@@ -89,17 +105,26 @@ app.get('/', (req, res) => {
       codHTML += `
               </tbody>
             </table>
-          </div>
-        </body>
-      </html>
+            
       `;
     } else {
       codHTML += ` 
           <h1>Informe corretamente um número positivo maior que 0</h1>
-        </body>
-      </html>
       `;
     }
+
+    codHTML += `
+            </div>
+            <footer>
+			        <p>Desenvolvido por
+                <a href="https://www.github.com/vmedeir0s/" target="_blank"
+                  >Vinicius de Medeiros</a>👨‍💻
+              </p>
+            </footer>
+        </body>
+      </html>
+    `;
+
     res.status(200).send(codHTML);
   }
 });
