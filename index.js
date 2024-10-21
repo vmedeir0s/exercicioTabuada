@@ -62,7 +62,7 @@ app.get('/', (req, res) => {
                 Informe na url a tabuada desejada. 
               </p>
               <p>
-                Exemplo: <code>http://localhost/?tabuada=7&sequencia=10</code> 
+                Exemplo: <code>https://exercicio-tabuada.vercel.app/?tabuada=7&sequencia=10</code> 
               </p>
               <p>Dessa maneira apresentará uma tabuada do número: "7" multiplicado do 0 ao 10</p>
             <footer>
